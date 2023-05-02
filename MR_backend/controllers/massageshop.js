@@ -1,5 +1,5 @@
 const Hospital = require('../models/MassageShop');
-const vacCenter = require('../models/VacCenter');
+// const vacCenter = require('../models/VacCenter');
 
 
 //@desc     Get vaccine centers
