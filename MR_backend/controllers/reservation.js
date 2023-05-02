@@ -1,5 +1,5 @@
 const Appointment = require('../models/Reservation');
-const Hospital = require('../models/MassageShop');
+const MassageShop = require('../models/MassageShop');
 
 //@desc     Get all appointments
 //@route    GET /api/v1/appointments
@@ -9,12 +9,12 @@ exports.getAppointments = async (req,res,next)=> {
     // General users can see only their appointments
     if(req.user.role !== 'admin') {
         query = Appointment.find({user: req.user.id}).populate({
-            path: 'hospital',
+            path: 'massageShop',
             select: 'name province tel'
         });
     } else { // Admin can see all
         query = Appointment.find().populate({
-            path: 'hospital',
+            path: 'massageShop',
             select: 'name province tel'
         });
     }
@@ -41,7 +41,7 @@ exports.getAppointments = async (req,res,next)=> {
 exports.getAppointment = async (req,res,next)=> {
     try {
         const appointment = await Appointment.findById(req.params.id).populate({
-            path: 'hospital',
+            path: 'massageShop',
             select: 'name province tel'
         });
         
@@ -69,18 +69,18 @@ exports.getAppointment = async (req,res,next)=> {
 
 
 //@desc     Add appointment
-//@route    POST /api/v1/hospitals/:hospitalId/appointment
+//@route    POST /api/v1/massageShops/:massageShopId/appointment
 //@access   Private
 exports.addAppointment = async (req,res,next)=> {
     try {
-        req.body.hospital = req.params.hospitalId;
+        req.body.massageShop = req.params.massageShopId;
 
-        const hospital = await Hospital.findById(req.params.hospitalId);
+        const hospital = await MassageShop.findById(req.params.massageShopId);
         
         if(!hospital)   {
             return res.status(404).json({
                 success:false,
-                message:`No hospital with id ${req.params.hospitalId}`
+                message:`No hospital with id ${req.params.massageShopId}`
             });
         }
 

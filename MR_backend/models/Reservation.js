@@ -12,9 +12,9 @@ const AppointmentSchema = new mongoose.Schema({
         required: true
     },
 
-    hospital: {
+    massageShop: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Hospital',
+        ref: 'MassageShop',
         required: true
     },
 
