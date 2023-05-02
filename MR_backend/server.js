@@ -75,7 +75,7 @@ app.use(hpp());
 app.use(cors());
 
 // Mount routers
-app.use('/api/v1/massage_shop',massageShop);
+app.use('/api/v1/massageShops',massageShop);
 app.use('/api/v1/appointments',appointments)
 app.use('/api/v1/auth',auth);
 

@@ -91,7 +91,7 @@ exports.getMassageShops = async(req, res, next)=>{
 };
 
 //@desc     Get single hospitals
-//@route    GET /api/v1/massageShop/:id
+//@route    GET /api/v1/massageShops/:id
 //@access   Public
 exports.getMassageShop = async (req, res, next)=> {
     try {
@@ -108,7 +108,7 @@ exports.getMassageShop = async (req, res, next)=> {
 };
 
 //@desc     Create new massageShop
-//@route    POST /api/v1/massageShop
+//@route    POST /api/v1/massageShops
 //@access   Private
 exports.createMassageShop = async (req, res, next)=> {
     const massageShop = await MassageShop.create(req.body);
@@ -140,7 +140,7 @@ exports.updateMassageShop = async (req, res, next)=> {
 
 };
 //@desc     Delete all massageShops
-//@route    DELETE /api/v1/hospitals/:id
+//@route    DELETE /api/v1/massageShops/:id
 //@access   Private
 exports.deleteMassageShop = async(req, res, next)=> {
     try{
