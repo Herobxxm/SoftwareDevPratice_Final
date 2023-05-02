@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin','massage_owner'],
         default: 'user'
     },
     password: {
@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please add a password"],
         minlength: 6,
         select: false
+    },
+    tel: {
+        type: String,
+        required: [true, "Please add a tel"],
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
@@ -49,7 +53,6 @@ UserSchema.methods.getSignedJwtToken = function() {
 }
 
 // Match user entered password to hashed password in database
-
 UserSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }

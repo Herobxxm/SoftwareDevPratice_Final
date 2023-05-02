@@ -4,14 +4,16 @@ const User = require('../models/User')
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
+    console.log(req.body)
     try{
-        const {name, email, password, role} = req.body;
+        const {name, email, password, tel,role} = req.body;
         //Create user
         const user = await User.create({
             name,
             email,
+            tel,
             password,
-            role
+            role,
         });
         //Create token
         // const token = user.getSignedJwtToken();
@@ -27,7 +29,7 @@ exports.register = async (req, res, next) => {
 // @route   POST /api/v1/auth/login
 // @access  Public
 exports.login = async (req, res, next) => {
-
+    console.log(req.body)
     try{
         const {email, password} = req.body;
 
@@ -87,6 +89,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 // @route   POST /api/v1/auth/me
 // @access  Private
 exports.getMe = async (req, res, next) => {
+
     const user = await User.findById(req.user.id);
     res.status(200).json({
         success:true,
