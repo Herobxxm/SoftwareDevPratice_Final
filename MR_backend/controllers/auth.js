@@ -4,7 +4,6 @@ const User = require('../models/User')
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
-    console.log(req.body)
     try{
         const {name, email, password, tel,role} = req.body;
         //Create user
@@ -29,7 +28,6 @@ exports.register = async (req, res, next) => {
 // @route   POST /api/v1/auth/login
 // @access  Public
 exports.login = async (req, res, next) => {
-    console.log(req.body)
     try{
         const {email, password} = req.body;
 

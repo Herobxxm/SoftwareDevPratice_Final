@@ -1,4 +1,5 @@
 const MassageShop = require('../models/MassageShop');
+const User = require('../models/User');
 // const vacCenter = require('../models/VacCenter');
 
 
@@ -111,12 +112,35 @@ exports.getMassageShop = async (req, res, next)=> {
 //@route    POST /api/v1/massageShops
 //@access   Private
 exports.createMassageShop = async (req, res, next)=> {
-    const massageShop = await MassageShop.create(req.body);
+    try{
+        const {name,address,district,province,postalcode,tel,region} = req.body;
 
-    res.status(201).json({
-        success:true,
-        data:massageShop
-    });
+        const user = await User.findById(req.user.id);
+
+        const owner = user.id;
+        const verify = user.role === 'admin' ? true : false;
+        //Create massageShop  
+        const massageShop = await MassageShop.create({
+            name,
+            address,
+            district,
+            province,
+            postalcode,
+            tel,
+            region,
+            owner,
+            verify
+        });
+        res.status(201).json({
+            success:true,
+            data:massageShop
+        });
+
+    } catch (err) {
+        res.status(400).json({success:false});
+        console.log(err.stack);
+    }
+
 };
 
 //@desc     Update massageShop
@@ -139,12 +163,42 @@ exports.updateMassageShop = async (req, res, next)=> {
     }
 
 };
+
+//@desc     Verify massageShop
+//@route    PUT /api/v1/massageShops/:id/verify
+//@access   Private
+exports.verifyMassageShop = async (req, res, next)=> {
+    try{
+        const massageShop = await MassageShop.findById(req.params.id);
+
+        if(!massageShop)   {
+            return res.status(400).json({success:false});
+        }
+
+        massageShop.verify = true;
+        massageShop.save();
+
+        res.status(200).json({success:true,data:massageShop});
+    } catch (err) {
+        res.status(400).json({success:false});
+    }
+};
+
+
 //@desc     Delete all massageShops
 //@route    DELETE /api/v1/massageShops/:id
 //@access   Private
 exports.deleteMassageShop = async(req, res, next)=> {
     try{
+
         const massageShop = await MassageShop.findById(req.params.id);
+        // check if admin or owner
+        if(massageShop.owner.toString() !== req.user.id && req.user.role !== 'admin')    {
+            return res.status(401).json({
+                success:false,
+                message:`User ${req.user.id} is not authorized to delete this massageShop`
+            });
+        }
 
         if(!massageShop)   {
             return res.status(400).json({
