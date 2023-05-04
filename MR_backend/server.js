@@ -18,6 +18,7 @@ const connectDB = require('./config/db');
 const massageShop = require('./routes/massageshop');
 const appointments = require('./routes/reservation');
 const auth = require('./routes/auth');
+const genPdf  = require("./routes/pdfGen")
 
 //Load env vars
 dotenv.config({path:'./config/config.env'});
@@ -78,6 +79,7 @@ app.use(cors());
 app.use('/api/v1/massageShops',massageShop);
 app.use('/api/v1/appointments',appointments)
 app.use('/api/v1/auth',auth);
+app.use('/api/v1/genPdf',genPdf);
 
 const PORT = process.env.PORT || 5000;
 

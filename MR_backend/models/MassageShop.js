@@ -52,8 +52,8 @@ const massageShopSchema = new mongoose.Schema({
 
 // Cascade delete appointments when a hospital is deleted
 massageShopSchema.pre('remove', async function(next) {
-    console.log(`Appointments being removed from hospital ${this._id}`);
-    await this.model('Appointment').deleteMany({ hospital: this._id });
+    console.log(`Appointments being removed from massageShop ${this._id}`);
+    await this.model('Appointment').deleteMany({ massageShop: this._id });
     next();
 });
 

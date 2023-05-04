@@ -19,7 +19,7 @@ const User = require('../models/User');
 
 
 
-//@desc     Get all hospitals
+//@desc     Get all massages
 //@route    GET /api/v1/massageShops
 //@access   Public
 exports.getMassageShops = async(req, res, next)=>{
@@ -63,7 +63,7 @@ exports.getMassageShops = async(req, res, next)=>{
 
     try {
         //Executing query
-        const hospitals = await query;
+        const massageShops = await query;
         //Pagination result
         const pagination = {};
 
@@ -83,8 +83,8 @@ exports.getMassageShops = async(req, res, next)=>{
         
         res.status(200).json({
             success:true,
-            count:hospitals.length,
-            data:hospitals
+            count:massageShops.length,
+            data:massageShops
         });
     } catch (err) {
         res.status(400).json({success:false});
