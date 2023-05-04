@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const MassageShop = require('../models/MassageShop')
 
 // @desc    Register user
 // @route   POST /api/v1/auth/register
@@ -89,9 +90,40 @@ const sendTokenResponse = (user, statusCode, res) => {
 exports.getMe = async (req, res, next) => {
 
     const user = await User.findById(req.user.id);
+    
+    const data = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        tel: user.tel,
+        role: user.role
+    }
+    
+    if(user.role === 'massage_owner'){
+        const massageShops = await MassageShop.find({owner: user.id});
+        // get only id, name, address, district, province, region, tel, verify  from massageShops
+        const shops = massageShops.map(shop => {
+            return {
+                _id: shop._id,
+                name: shop.name,
+                address: shop.address,
+                district: shop.district,
+                province: shop.province,
+                region: shop.region,
+                tel: shop.tel,
+                verify: shop.verify
+            }
+        });
+
+        //sort by verify
+        shops.sort((a,b) => (a.verify > b.verify) ? -1 : ((b.verify > a.verify) ? 1 : 0));
+
+        data.massageshopsOwned = shops;
+    }
+
     res.status(200).json({
         success:true,
-        data:user
+        data:data
     });
 };
 

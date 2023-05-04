@@ -13,8 +13,8 @@ const {protect,authorize} = require('../middleware/auth');
 router.use('/:massageShopId/appointments',appointmentRouter);
 
 router.route('/').get(getMassageShops).post(protect,authorize('admin','massage_owner'), createMassageShop);
-router.route('/:id').get(getMassageShop).put(protect,authorize('admin','massage_owner'), updateMassageShop).delete(protect,authorize('admin','massage_owner'),deleteMassageShop);
 router.route('/:id/verify').put(protect,authorize('admin'),verifyMassageShop);
+router.route('/:id').get(getMassageShop).put(protect,authorize('admin','massage_owner'), updateMassageShop).delete(protect,authorize('admin','massage_owner'),deleteMassageShop);
 
 module.exports = router;
 
