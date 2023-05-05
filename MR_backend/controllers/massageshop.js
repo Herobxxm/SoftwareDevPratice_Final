@@ -90,7 +90,7 @@ exports.getMassageShops = async(req, res, next)=>{
     }
 };
 
-//@desc     Get single hospitals
+//@desc     Get single massageShop
 //@route    GET /api/v1/massageShops/:id
 //@access   Public
 exports.getMassageShop = async (req, res, next)=> {
