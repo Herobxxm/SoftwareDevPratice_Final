@@ -31,8 +31,20 @@ const massageShopSchema = new mongoose.Schema({
     region: {
         type: String,
         required: [true, 'Please add a region'],
-    }
-    
+    },
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        require: true,
+        ref: 'User',
+        required: true
+    },
+    verify: {
+        type: Boolean,
+        default: false,
+        require: true
+    },
+
+
 },{
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
