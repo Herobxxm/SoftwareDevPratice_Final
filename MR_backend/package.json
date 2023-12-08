@@ -23,7 +23,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
     "moment": "^2.29.4",
-    "mongoose": "^6.9.1",
+    "mongoose": "^6.11.3",
     "mysql": "^2.18.1",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.6.2",
